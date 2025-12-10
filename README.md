@@ -20,7 +20,7 @@ Le resultat obtenu est une fractale.
 
 Le but de ce projet est de concevoir un programme pour réaliser cette fractale (dans un premier temps). Il est possible de modifier les differentes couleurs, mais une attention particulière sera porté à la performance du code. En effet, dans une approche naîve du problème, le calcul des points $c$ non convergents est théoriquement infini. On est obligé de choisir un seuil maximal à partir duquel on considère que le point consideré ne diverge pas. Le choix de ce seuil peut affecter la repartition des couleurs.
 
-Le fichier [Documentation.pdf](\Doc\Documentation.pdf) explore certaines pistes pour optimiser le calcul de l'ensemble de Mandelbrot et d'autres manières d'aprehender le problème.
+Le fichier [Documentation.pdf](doc/Documentation.pdf) explore certaines pistes pour optimiser le calcul de l'ensemble de Mandelbrot et d'autres manières d'aprehender le problème.
 
 Ainsi nous implementerons plusieures versions (succesives), avec differentes approches/optimisations.
 
@@ -28,10 +28,10 @@ Le prgramme produit en sortie des images en format Portable Network Graphics (PN
 
 ## Structure du projet
 
-- Le dossier [data](\data) contient differents jeux de données (resultats de tests de performance).
-- Le dossier [doc](\Doc) contient la documentation expliquant plus en détail certains points du projet ... 
-- Le dossier [images](\images) est le répertoire de sortie de la production d'images du programme
-- Le dossier [src](\src) contient les fichiers source du programme.
+- Le dossier [data](data) contient differents jeux de données (resultats de tests de performance, pour l'instant vide)
+- Le dossier [doc](doc) contient la documentation expliquant plus en détail certains points du projet ... 
+- Le dossier [images](images) est le répertoire de sortie de la production d'images du programme
+- Le dossier [src](src) contient les fichiers source du programme.
 <!-- Le dossier build n'est pas à propager! -->
 
 ## Tester sur sa propre machine
@@ -50,7 +50,7 @@ Le prgramme produit en sortie des images en format Portable Network Graphics (PN
     sudo apt-get install zlib1g-dev
     sudo apt-get install libpng-dev
     ```
-- _Il est recomandé d'utilser le compilateur GNU, sinon il faudra modifier les options de compilation dans le fichier [CMakeLists.txt](\CMakeLists.txt).
+- Il est recomandé d'utilser le compilateur GNU, sinon il faudra modifier les options de compilation dans le fichier [CMakeLists.txt](CMakeLists.txt).
 
 ### Procedure
 
@@ -67,14 +67,14 @@ Ensuite on va compiler le projet:
 ```bash
 cmake --build .
 ```
-Pour executer le programme on execute la commande [si on est pas sur un OS Windows (où WSL) il faudra changer le nom de l'executable dans la fonction add_executable() dans le fichier  [CMakeLists.txt](\CMakeLists.txt)]:
+Pour executer le programme on execute la commande [si on est pas sur un OS Windows (où WSL) il faudra changer le nom de l'executable dans la fonction add_executable() dans le fichier  [CMakeLists.txt](CMakeLists.txt)]:
 ```bash
 ./Main.exe
 ```
 
-Pour modifier la disposition des couleurs (le plus important) il faut se rendre dans le fichier [Color.cpp](\src\code\Color.cpp).
+Pour modifier la disposition des couleurs (le plus important) il faut se rendre dans le fichier [Color.cpp](src/code/Color.cpp).
 L'idéal serait de copier l'approche utilsé par l'une des fonctions présente dans le fichier source. Il faudrait alors inclure le nom de la fonction crée où modifiée en tant que dernier argument, dans l'appel de la fonction `color_mandel()`.
 
 ## Autres remarques
 
-L'utilisation de l'IA n'a été faite qu'une seule fois. Et son usage se resume dans le code du fichier source [exemple_png_mistral_ia.cpp](\src\code\exemple_png_mistral_ia.cpp), qui m'a facilité l'écriture de la fonction permettant de creer une image png.
+L'utilisation de l'IA n'a été faite qu'une seule fois. Et son usage se resume dans le code du fichier source [exemple_png_mistral_ia.cpp](src/code/exemple_png_mistral_ia.cpp), qui m'a facilité l'écriture de la fonction permettant de creer une image png.

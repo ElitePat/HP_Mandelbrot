@@ -63,7 +63,7 @@ int main(){
     
 
     // Creation de l'image (avec le double tableau modifié)
-    crea_png((picture_path + "Mandelbrot.png").c_str(),height,width,mandel_pixels);
+    crea_png((picture_path + "Mandelbrot11.png").c_str(),height,width,mandel_pixels);
 
 
     // On sort du programme

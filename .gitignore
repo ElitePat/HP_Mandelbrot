@@ -3,6 +3,4 @@
 # Allows to untrack files that are specific to your machine (executables and others ...)
 .vscode/*
 build/*
-images/*
-
-
+images/Test_PNG.png
