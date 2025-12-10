@@ -1,0 +1,8 @@
+# .gitignore file for HP_Mandelbrot Project
+# This file describes files/directories that should be not shared to the public repositories (Github for example)
+# Allows to untrack files that are specific to your machine (executables and others ...)
+.vscode/*
+build/*
+images/*
+
+
