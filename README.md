@@ -7,8 +7,11 @@ Le but de ce projet est d'avoir un programme qui nous permette de réaliser des 
 ### Mandelbrot
 
 On se place dans un plan complexe, avec en abcsisse les nombres réels et en ordonées les nombres complexes. L'ensemble de Mndelbrot dans un tel plan est défini par tous les points $c$ bornées par l'application de la suite complexe $(Z_n)$ suivante:
+
 $$ z_{n+1} = z_n^2 + c $$
+
 avec
+
 $$ z_0 = 0 $$
 
 Le resultat obtenu est une fractale.
@@ -74,6 +77,12 @@ Pour executer le programme on execute la commande [si on est pas sur un OS Windo
 
 Pour modifier la disposition des couleurs (le plus important) il faut se rendre dans le fichier [Color.cpp](src/code/Color.cpp).
 L'idéal serait de copier l'approche utilsé par l'une des fonctions présente dans le fichier source. Il faudrait alors inclure le nom de la fonction crée où modifiée en tant que dernier argument, dans l'appel de la fonction `color_mandel()`.
+
+Pour nettoyer le dossier build (correctement) faire:
+```bash
+cd build
+cmake --build . --target my_clean && cd ../
+```
 
 ## Autres remarques
 
