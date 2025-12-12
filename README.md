@@ -21,9 +21,9 @@ Le resultat obtenu est une fractale.
 
 ### Objectifs
 
-Le but de ce projet est de concevoir un programme pour réaliser cette fractale (dans un premier temps). Il est possible de modifier les differentes couleurs, mais une attention particulière sera porté à la performance du code. En effet, dans une approche naîve du problème, le calcul des points $c$ non convergents est théoriquement infini. On est obligé de choisir un seuil maximal à partir duquel on considère que le point consideré ne diverge pas. Le choix de ce seuil peut affecter la repartition des couleurs.
+Le but de ce projet est de concevoir un programme pour réaliser cette fractale (dans un premier temps). Il est possible de modifier les differentes couleurs, mais une attention particulière sera porté à la performance du code. En effet, dans une approche naîve du problème, le calcul des points $c$ qui convergent est théoriquement infini. On est obligé de choisir un seuil maximal à partir duquel on considère que le point consideré ne diverge pas. Le choix de ce seuil peut affecter le détail du dessin final et la repartition des couleurs.
 
-Le fichier [Documentation.pdf](doc/Documentation.pdf) explore certaines pistes pour optimiser le calcul de l'ensemble de Mandelbrot et d'autres manières d'aprehender le problème.
+Le fichier [Documentation.pdf](doc/Documentation.pdf) explore certaines pistes pour optimiser le calcul de l'ensemble de Mandelbrot et d'autres manières d'appréhender le problème.
 
 Ainsi nous implementerons plusieures versions (succesives), avec differentes approches/optimisations.
 
@@ -53,7 +53,7 @@ Le prgramme produit en sortie des images en format Portable Network Graphics (PN
     sudo apt-get install zlib1g-dev
     sudo apt-get install libpng-dev
     ```
-- Il est recomandé d'utilser le compilateur GNU, sinon il faudra modifier les options de compilation dans le fichier [CMakeLists.txt](CMakeLists.txt).
+- Il est recomandé d'utilser le compilateur GNU, sinon il faudra modifier les options de compilation en fonction du compilateur choisi dans le fichier [CMakeLists.txt](CMakeLists.txt).
 
 ### Procedure
 
@@ -70,13 +70,14 @@ Ensuite on va compiler le projet:
 ```bash
 cmake --build .
 ```
-Pour executer le programme on execute la commande [si on est pas sur un OS Windows (où WSL) il faudra changer le nom de l'executable dans la fonction add_executable() dans le fichier  [CMakeLists.txt](CMakeLists.txt)]:
+Pour executer le programme on execute la commande :
 ```bash
 ./Main.exe
 ```
+[Si on est pas sur un OS Windows (où WSL) il faudra changer le nom de l'executable dans la fonction add_executable() dans le fichier  [CMakeLists.txt](CMakeLists.txt)]
 
 Pour modifier la disposition des couleurs (le plus important) il faut se rendre dans le fichier [Color.cpp](src/code/Color.cpp).
-L'idéal serait de copier l'approche utilsé par l'une des fonctions présente dans le fichier source. Il faudrait alors inclure le nom de la fonction crée où modifiée en tant que dernier argument, dans l'appel de la fonction `color_mandel()`.
+L'idéal serait d'imiter l'approche utilsé par l'une des fonctions présente dans ce fichier. Il faudrait alors inclure le nom de la fonction crée où modifiée en tant que dernier argument, dans l'appel de la fonction `color_mandel()` dans le fichier [MandelBrot.cpp](src/code/MandelBrot.cpp).
 
 Pour nettoyer le dossier build (correctement) faire:
 ```bash
