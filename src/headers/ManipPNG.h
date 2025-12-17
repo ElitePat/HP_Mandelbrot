@@ -7,7 +7,6 @@
 #include <png.h>       // gestion fichiers PNG
 #include <zlib.h>      // compression fichiers PNG
 #include <vector>
-#include <string>
 
 
 // Fonction de test création PNG
