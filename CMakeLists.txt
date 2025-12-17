@@ -43,6 +43,8 @@ set(MAIN_SRC
     ${CODE_DIR}/MandelBrot.cpp
     ${CODE_DIR}/Color.cpp
     ${CODE_DIR}/ManipPNG.cpp
+    ${CODE_DIR}/ImagePNG.cpp
+    ${CODE_DIR}/Fractale.cpp
     # Ajouter les fichiers sources ici au fur et à mésure de leur création.
 )
 

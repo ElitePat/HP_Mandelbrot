@@ -2,6 +2,7 @@
 
 #include "../headers/MandelBrot.h"
 #include "../headers/ManipPNG.h"
+#include "../headers/ImagePNG.h"
 
 #define LIMIT 100000000 // 10^8
 
@@ -11,7 +12,6 @@ const std::string picture_path = "../images/";
 // Fonction Principale
 int main(){
     std::cout << "Dessin MandelBrot.\n";
-
 
     // On défini la taille de l'image (en pixels)
     const int height=750, width=1000; // 75 000 000 pixels à calculer !
@@ -25,6 +25,7 @@ int main(){
 
 
     // Vérifications de sécurité (data unit tests)
+    /*
     if(height*width >= LIMIT){ // Limite pour la taille des images et pour la taille du double vecteur
         std::cout << "Image trop grande pour être calculé.\n";
         std::cout << "Échec du dessin" << std::endl;
@@ -61,10 +62,30 @@ int main(){
     }
     */
     
-
     // Creation de l'image (avec le double tableau modifié)
-    crea_png((picture_path + "Mandelbrot11.png").c_str(),height,width,mandel_pixels);
+    //crea_png((picture_path + "Mandelbrot11.png").c_str(),height,width,mandel_pixels);
 
+    std::cout << "ok0";
+    // création de l'image png
+    ImagePNG mb{750,1000};
+    // on laisse les marges par défaut
+    std::cout << "ok1";
+
+    // on lance le chronomètre
+    const auto debut{std::chrono::steady_clock::now()};
+    // On fait les calculs pour l'image
+    std::cout << "ok2";
+    calculate_mandel(startx,starty,endx,endy,height,width,mb.image_px);
+    std::cout << "ok3";
+    // on arrete le chronomètre
+    const auto fin{std::chrono::steady_clock::now()};
+    // on calcule affiche le temps passé
+    const std::chrono::duration<double> tcl{(fin - debut)}; // passage des nanosecondes au secondes
+    std::cout << "Temps de calcul du dessin = " << tcl.count() << "\n";    
+
+    std::cout << "ok4";
+    mb.crea_png((picture_path + "Mandelbrot11.png").c_str());
+    std::cout << "ok5";
 
     // On sort du programme
     std::cout << "Sortie du programme de dessin." << std::endl;
