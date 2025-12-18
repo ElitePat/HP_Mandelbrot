@@ -16,7 +16,7 @@ class ImagePNG{
 private:
 
     // On défini la taille de l'image (en pixels)
-    const int height=750, width=1000; // 75 000 000 pixels au total !
+    const int height, width;
 
     // Pour la définition la zone qu'on veut déssiner.
     double startx, endx;
@@ -39,12 +39,12 @@ private:
 public:
 
     // Déclaration du double tableau de png_byte
-    std::vector<std::vector<png_byte>> image_px;
+    std::vector<std::vector<png_byte>> *image_px;
 
     // Constructeur
     ImagePNG(int h, int w);
-    /* Destructeur: Si jamais on alloue les vecteurs il faudra implementer un comportement correct ici ! */
-    ~ImagePNG() = default;
+    // Destructeur, désallue le couble vecteur
+    ~ImagePNG();
 
     // Setter:
     // Réglage de la zone qu'on veut dessiner

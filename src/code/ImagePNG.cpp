@@ -22,7 +22,8 @@ ImagePNG::ImagePNG(int h, int w) : height(h), width(w) {
     }
 
     // Limite pour la taille des images et pour la taille du double vecteur
-    if(height*width >= IMG_SIZE_LIMIT){ 
+    int px_tt = height*width;
+    if(px_tt >= IMG_SIZE_LIMIT){ 
         std::cout << "Image trop grande pour être calculé.\n";
         std::cout << "Échec du dessin" << std::endl;
         throw InvalidImageArg();
@@ -34,12 +35,18 @@ ImagePNG::ImagePNG(int h, int w) : height(h), width(w) {
     starty=-1.2;
     endy=1.2;
 
-    // on initalise le double vecteur
-    std::vector<std::vector<png_byte>> image_px(height, std::vector<png_byte>(width*4));
+    // on initalise le double vecteur de png_byte
+    image_px = new std::vector<std::vector<png_byte>>(height, std::vector<png_byte>(width*4)); // 4 valeurs pour chaque pixel !
+    std::cout << "Image crée avec " << px_tt << " pixels\n"; // debug line
 
 }
 
-    // Réglage de la zone qu'on veut dessiner
+// destructeur de la classe
+ImagePNG::~ImagePNG(){
+    delete image_px;
+}
+
+// Réglage de la zone qu'on veut dessiner
 int ImagePNG::set_zoom(double sx, double ex, double sy, double ey){
     startx = sx;
     endx = ex;
@@ -59,7 +66,7 @@ int ImagePNG::set_zoom(double sx, double ex, double sy, double ey){
 // On affiche les pixels sur le terminal
 void ImagePNG::printpxl(){
     // On itérer sur le double vecteur
-    for(std::vector<png_byte> row : image_px){
+    for(std::vector<png_byte> row : *image_px){
         for(png_byte px : row){
             std::cout << (unsigned int)px << " ";
         }
@@ -123,10 +130,15 @@ void ImagePNG::crea_png(const char *filename){
     // écrire les informations de l'image
     png_write_info(png, info);
 
-    // Création image
-    for(int i=height-1; i>=0; --i){ // parcours en sens inverse pour que image soit à l'endroit
-        png_write_row(png, image_px[i].data());
+    // Création image avec parcours en sens inverse pour qu'elle soit à l'endroit !
+    for(auto &i : std::vector<std::vector<png_byte>>(image_px->rbegin(), image_px->rend())){
+        png_write_row(png, i.data());
     }
+    /*
+    for(int i=height-1; i>=0; --i){ // 
+        png_write_row(png, image_px.at(i).data());
+    }
+    */
 
     // Terminer l'écriture de l'image
     png_write_end(png, NULL);
