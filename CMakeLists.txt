@@ -40,11 +40,9 @@ set(HEADERS_DIR ${CMAKE_SOURCE_DIR}/src/headers)
 # Doit inclure TOUS les .cpp dont le code à besoin pour compiler et les lier.
 set(MAIN_SRC
     ${CODE_DIR}/Main.cpp     
+    ${CODE_DIR}/ImagePNG.cpp
     ${CODE_DIR}/MandelBrot.cpp
     ${CODE_DIR}/Color.cpp
-    ${CODE_DIR}/ManipPNG.cpp
-    ${CODE_DIR}/ImagePNG.cpp
-    ${CODE_DIR}/Fractale.cpp
     # Ajouter les fichiers sources ici au fur et à mésure de leur création.
 )
 

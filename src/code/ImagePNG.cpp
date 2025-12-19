@@ -44,6 +44,7 @@ ImagePNG::ImagePNG(int h, int w) : height(h), width(w) {
 // destructeur de la classe
 ImagePNG::~ImagePNG(){
     delete image_px;
+    std::cout << "Pointeur image_px supprimé correctement.\n";
 }
 
 // Réglage de la zone qu'on veut dessiner

@@ -1,8 +1,12 @@
 #include "../headers/MandelBrot.h"
-#include "../headers/Color.h"
 
 
-int iter_mandel(const std::complex<double> c){
+// Construeur: on utilise celui de la classe parent
+MandelBrot::MandelBrot(int h, int w) : ImagePNG::ImagePNG(h,w) {}
+
+
+// Fonction qui renvoie en sortie le nombre d'itérations pour que le complexe donné diverge
+int MandelBrot::iter_mandel(const std::complex<double> c){
 
     // Variables
     int cmpt = 0;
@@ -18,8 +22,8 @@ int iter_mandel(const std::complex<double> c){
     return cmpt;
 }
 
-
-void color_mandel(int x, int y, int degree, std::vector<std::vector<png_byte>>& mandel_pixels, unsigned char mandelbrot_color(int rgb, int d)){
+// Fonction qui associe une couleur au degrée de divergence calculé
+void MandelBrot::color_mandel(int x, int y, int degree, unsigned char color_selector(int rgb, int d)){
 
     // On associe une couleur au degree
     unsigned char r, g, b; //teinte=0; // Attention format RVBA (rouge, vert, bleu, alpha) !
@@ -29,40 +33,39 @@ void color_mandel(int x, int y, int degree, std::vector<std::vector<png_byte>>& 
         g = (unsigned char)(0); 
         b = (unsigned char)(0); 
     }else{        
-        r = mandelbrot_color(0,degree);
-        g = mandelbrot_color(1,degree);
-        b = mandelbrot_color(2,degree);
+        r = color_selector(0,degree);
+        g = color_selector(1,degree);
+        b = color_selector(2,degree);
     }
     //std::cout << "x:" << x << ",y:" << y << " => " << degree << "\n"; // debug line
 
     // On sauvegarde la couleur obtenue
-    mandel_pixels[y][x*4] = r;
-    mandel_pixels[y][x*4 + 1] = g;
-    mandel_pixels[y][x*4 + 2] = b;
-    mandel_pixels[y][x*4 + 3] = 255; // degre d'opacité maximal
+    image_px->at(y).at(x*4) = r;
+    image_px->at(y).at(x*4 + 1) = g;
+    image_px->at(y).at(x*4 + 2) = b;
+    image_px->at(y).at(x*4 + 3) = 255; // degre d'opacité maximal
     
 }
 
-
-void calculate_mandel(const double startx, const double starty, const double endx, const double endy, 
-    const int h, const int w, std::vector<std::vector<png_byte>>& mandel_pixels){
+// Fonction qui modifie le double vecteur de l'image pour obtenir le dessin du Mandelbrot
+void MandelBrot::draw_mandel(){
 
     // on calcule le pas avec lequel on doit itérer
-    double pas_x = fabs(endx - startx) / w;
-    double pas_y = fabs(endy - starty) / h;
+    double pas_x = fabs(endx - startx) / width;
+    double pas_y = fabs(endy - starty) / height;
 
     // on defini les varaibles avec lequelles on calcule
     std::complex<double> c;
     int x, y;
 
     // Double-boucle principale
-    for(y=0; y<h; y++){
-        for(x=0; x<w; x++){
+    for(y=0; y<height; y++){
+        for(x=0; x<width; x++){
             // on identifie le complexe c associé au point x;y
             c = std::complex<double>(startx + pas_x * x, starty + pas_y * y);
 
             // On colorie selon le niveau de divergence et la fonction rentrée en paramétre en dernier !
-            color_mandel(x,y,iter_mandel(c), mandel_pixels, exp);
+            color_mandel(x,y,iter_mandel(c), exp);
         }
     }
 

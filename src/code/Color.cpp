@@ -52,7 +52,7 @@ unsigned char exp(int rgb, int d){
     switch (rgb)
     {
     case 0:
-        res = (unsigned char)(-1*(d*8));
+        res = (unsigned char)(-1*(d*20));
         break;
     case 1:
         res = (unsigned char)(-1*(abs(d-500))/2+255);

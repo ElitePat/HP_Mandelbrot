@@ -13,7 +13,7 @@
 
 
 class ImagePNG{
-private:
+protected:
 
     // On défini la taille de l'image (en pixels)
     const int height, width;
@@ -43,8 +43,8 @@ public:
 
     // Constructeur
     ImagePNG(int h, int w);
-    // Destructeur, désallue le couble vecteur
-    ~ImagePNG();
+    // Destructeur, désallue le double vecteur 
+    virtual ~ImagePNG(); // virtual pour destruction des classes derivées
 
     // Setter:
     // Réglage de la zone qu'on veut dessiner
