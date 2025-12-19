@@ -65,7 +65,7 @@ void MandelBrot::draw_mandel(){
             c = std::complex<double>(startx + pas_x * x, starty + pas_y * y);
 
             // On colorie selon le niveau de divergence et la fonction rentrée en paramétre en dernier !
-            color_mandel(x,y,iter_mandel(c), exp);
+            color_mandel(x,y,iter_mandel(c), experience);
         }
     }
 

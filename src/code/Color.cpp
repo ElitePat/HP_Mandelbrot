@@ -47,15 +47,15 @@ unsigned char blue_green_blue(int rgb, int d){
     return res;
 }
 
-unsigned char exp(int rgb, int d){
+unsigned char experience(int rgb, int d){
         unsigned char res;
     switch (rgb)
     {
     case 0:
-        res = (unsigned char)(-1*(d*20));
+        res = (unsigned char)(-1*(d*22));
         break;
     case 1:
-        res = (unsigned char)(-1*(abs(d-500))/2+255);
+        res = (unsigned char)(1*(abs(d-500))/2+255);
         break;
 
     case 2:

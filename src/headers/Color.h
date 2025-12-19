@@ -19,7 +19,7 @@ unsigned char base(int rgb, int d);
 unsigned char blue_green_blue(int rgb, int d);
 
 // experimental fonction
-unsigned char exp(int rgb, int d);
+unsigned char experience(int rgb, int d);
 
 
 #endif // COLOR_H
