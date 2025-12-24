@@ -28,12 +28,6 @@ ImagePNG::ImagePNG(int h, int w) : height(h), width(w) {
         std::cout << "Échec du dessin" << std::endl;
         throw InvalidImageArg();
     }
-    
-    // pour la plage des données on défini des valeurs par défaut
-    startx=-2.01;
-    endx=0.7;
-    starty=-1.2;
-    endy=1.2;
 
     // on initalise le double vecteur de png_byte
     image_px = new std::vector<std::vector<png_byte>>(height, std::vector<png_byte>(width*4)); // 4 valeurs pour chaque pixel !
@@ -45,23 +39,6 @@ ImagePNG::ImagePNG(int h, int w) : height(h), width(w) {
 ImagePNG::~ImagePNG(){
     delete image_px;
     std::cout << "Pointeur image_px supprimé correctement.\n";
-}
-
-// Réglage de la zone qu'on veut dessiner
-int ImagePNG::set_zoom(double sx, double ex, double sy, double ey){
-    startx = sx;
-    endx = ex;
-    starty = sy;
-    endy = ey;
-
-    // >= car on veut une zone de dessin non vide !
-    if((startx >= endx) || (starty >= endy)){ 
-        std::cout << "Mauvaises plages de données.\n";
-        std::cout << "Échec du dessin" << std::endl;
-        return 1; // sortie d'echec (utile pour ctest)
-    }
-
-    return 0;
 }
 
 // On affiche les pixels sur le terminal
@@ -77,10 +54,10 @@ void ImagePNG::printpxl(){
 }
 
 // Creation de l'image à partir du double tableau
-void ImagePNG::crea_png(const char *filename){
+void ImagePNG::crea_png(std::string const& filename){
 
     // ouverture du fichier en écriture
-    FILE *fichier = fopen(filename,"wb");
+    FILE *fichier = fopen((picture_path + filename + ".png").c_str(),"wb");
     if(!fichier){// Si l'ouverture du fichier n'as pas réussi
         // Mesage d'erreur
         std::cerr << "Impossible d'ouvrir le fichier" << std::endl;

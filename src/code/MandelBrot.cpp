@@ -2,7 +2,30 @@
 
 
 // Construeur: on utilise celui de la classe parent
-MandelBrot::MandelBrot(int h, int w) : ImagePNG::ImagePNG(h,w) {}
+MandelBrot::MandelBrot(int h, int w) : ImagePNG::ImagePNG(h,w) {
+    // pour la plage des données on défini des valeurs par défaut
+    startx=-2.01;
+    endx=0.7;
+    starty=-1.2;
+    endy=1.2;
+}
+
+// Réglage de la zone qu'on veut dessiner
+int MandelBrot::set_zoom(double sx, double ex, double sy, double ey){
+    startx = sx;
+    endx = ex;
+    starty = sy;
+    endy = ey;
+
+    // >= car on veut une zone de dessin non vide !
+    if((startx >= endx) || (starty >= endy)){ 
+        std::cout << "Mauvaises plages de données.\n";
+        std::cout << "Échec du dessin" << std::endl;
+        return 1; // sortie d'echec (utile pour ctest)
+    }
+
+    return 0;
+}
 
 
 // Fonction qui renvoie en sortie le nombre d'itérations pour que le complexe donné diverge
@@ -69,4 +92,41 @@ void MandelBrot::draw_mandel(){
         }
     }
 
+}
+
+
+// Méthode pour faire plusieures images d'un seul appel
+void MandelBrot::run(int const& n){
+    
+    // Variables
+    std::string filename = "mz";
+    double sx, ex, sy, ey;
+    
+    // on choisi un point de depart
+    double orgzx=-1.5, orgzy=0;
+    // et un zoom de départ
+    sx = orgzx - 0.5;
+    ex = orgzx + 0.5;
+    sy = orgzy - 0.5;
+    ey = orgzy + 0.5;
+
+    // de combien on zoom pour chaque itération
+    double zoom = 0.05;
+    
+    for(int i=0; i<n; ++i){
+        if(!set_zoom(sx,ex,sy,ey)){
+            draw_mandel();
+            crea_png((filename + std::to_string(i)).c_str());
+            std::cout << "Itération " << i << "\n";
+        }else{
+            std::cout << "Erreur dans le zoom\n";
+            break;
+        }
+        // on redefini le zoom
+        zoom /= 1.1; // sinon on fini par zoomer trop vite !
+        sx += zoom;
+        ex -= zoom;
+        sy += zoom;
+        ey -= zoom;
+    }
 }

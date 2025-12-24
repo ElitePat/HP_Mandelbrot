@@ -59,7 +59,7 @@ unsigned char experience(int rgb, int d){
         break;
 
     case 2:
-        res = (unsigned char)(100 + 20*d); // 150 de base
+        res = (unsigned char)(75 + 20*d); // 150 de base
         break;
 
     default:
