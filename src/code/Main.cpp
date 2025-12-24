@@ -12,7 +12,7 @@ int main(){
     std::cout << "Dessin MandelBrot.\n";
 
     // On défini la taille de l'image (en pixels)
-    const int height=750, width=1000; // 75 000 000 pixels à calculer !
+    const int height=7500, width=1000; // 7 500 000 pixels à calculer !
 
     // création de l'image png
     MandelBrot* mb = new MandelBrot{height,width};
