@@ -103,7 +103,7 @@ void MandelBrot::run(int const& n){
     double sx, ex, sy, ey;
     
     // on choisi un point de depart
-    double orgzx=-1.5, orgzy=0;
+    double orgzx=0.25, orgzy=0;
     // et un zoom de départ
     sx = orgzx - 0.5;
     ex = orgzx + 0.5;

@@ -40,7 +40,7 @@ public:
     virtual ~ImagePNG(); // virtual pour destruction des classes derivées
 
     // Affichage des pixels sur le terminal
-    void printpxl();
+    void printpxl(); // utile pour debug
 
     // Creation de l'image à partir du double tableau
     void crea_png(std::string const& filename);

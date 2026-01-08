@@ -39,7 +39,6 @@ public:
     // Réglage de la zone qu'on veut dessiner
     int set_zoom(double sx, double ex, double sy, double ey);
 
-
     // Fonction qui modifie le double vecteur de l'image pour obtenir le dessin du Mandelbrot
     void draw_mandel();
 

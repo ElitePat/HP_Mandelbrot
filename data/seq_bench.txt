@@ -1,0 +1,11 @@
+Resultats d'execution du code en séquentiel (les temps sont données en secondes):
+
+Zoom dans une zone itérant plus vite:
+Temps total d'execution: 138.736
+Temps par image moyen: 1.38736
+
+Zoom dans une zone itérant moins vite:
+Temps total d'execution: 3086.47
+Temps par image moyen: 30.8647
+
+Soit en moyenne une image est produite toutes les (1.38736 + 30.8647) / 2 = 16.12603 secondes !
