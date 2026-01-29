@@ -1,11 +1,36 @@
-Resultats d'execution du code en séquentiel (les temps sont données en secondes):
+RESULATATS D'ÉXECUTION CODE MANDELBROT EN SÉQUENTIEL
 
-Zoom dans une zone itérant plus vite:
+Les temps sont données en secondes
+
+---------------------- Sans aucune option supplementaire de compilation -----------------------
+
+> cmake --build .
+> ./Main.exe
+
+Zoom autour du point (-1.5;0) une zone itérant plus vite:
 Temps total d'execution: 138.736
-Temps par image moyen: 1.38736
+Temps moyen par image : 1.38736
 
-Zoom dans une zone itérant moins vite:
+Zoom autour du point (0.25;0) une zone itérant moins vite:
 Temps total d'execution: 3086.47
-Temps par image moyen: 30.8647
+Temps moyen par image : 30.8647
 
 Soit en moyenne une image est produite toutes les (1.38736 + 30.8647) / 2 = 16.12603 secondes !
+-----------------------------------------------------------------------------------------------
+
+---------------------- Compilation avec option Release ------------------------------------------
+
+> cmake -DCMAKE_BUILD_TYPE=Release .
+> cmake --build .
+> ./Main.exe
+
+Zoom autour du point (-1.5;0) une zone itérant plus vite:
+Temps total d'execution: 32.2428
+Temps moyen par image: 0.322428
+
+Zoom autour du point (0.25;0) une zone itérant moins vite:
+Temps total d'execution: 641.889
+Temps moyen par image: 6.41889
+
+Soit en moyenne une image est produite toutes les (0.322428 + 6.41889) / 2 = 3.370659 secondes !
+-----------------------------------------------------------------------------------------------
