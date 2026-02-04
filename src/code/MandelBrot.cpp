@@ -103,30 +103,40 @@ void MandelBrot::run(int const& n){
     double sx, ex, sy, ey;
     
     // on choisi un point de depart
-    double orgzx=0.25, orgzy=0;
-    // et un zoom de départ
-    sx = orgzx - 0.5;
-    ex = orgzx + 0.5;
+    double orgzx=0.25, orgzy=0.0001;
+    // et un zoom de départ (on tient compte ici du format de l'image: 4:3)
+    sx = orgzx - (0.5 * width/height);
+    ex = orgzx + (0.5 * width/height);
     sy = orgzy - 0.5;
     ey = orgzy + 0.5;
 
     // de combien on zoom pour chaque itération
-    double zoom = 0.05;
+    double zoom = 0.5;
+
+    std::cout << "Itération\tZoom\tPlage de données (en xmin,ymin - xmax,ymax)\n";
     
+    // Boucle principale
     for(int i=0; i<n; ++i){
+
+        // Debug output
+        std::cout << i << "\t\t" << zoom << "\t[" << sx << ";" << sy << "] -> [" << ex << ";" << ey << "]\n";
+
+        // test sur les plages des données !
         if(!set_zoom(sx,ex,sy,ey)){
             draw_mandel();
             crea_png((filename + std::to_string(i)).c_str());
-            std::cout << "Itération " << i << "\n";
         }else{
             std::cout << "Erreur dans le zoom\n";
             break;
         }
+
         // on redefini le zoom
-        zoom /= 1.1; // sinon on fini par zoomer trop vite !
-        sx += zoom;
-        ex -= zoom;
-        sy += zoom;
-        ey -= zoom;
+        /* Ici on regle le zoom par rapport à l'image precedente. On utilise fabs() pour avoir la distance entre
+        l'origine du zoom et les bors de l'image et on reduit cette distance de zoom fois. Avec zoom < 1 ! */
+        sx += fabs(orgzx - sx) * zoom;
+        ex -= fabs(orgzx - ex) * zoom;        
+        sy += fabs(orgzy - sy) * zoom;
+        ey -= fabs(orgzy - ey) * zoom;
+
     }
 }

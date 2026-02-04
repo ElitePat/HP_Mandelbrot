@@ -4,6 +4,7 @@ Les temps sont données en secondes
 
 ---------------------- Sans aucune option supplementaire de compilation -----------------------
 
+> cmake ..
 > cmake --build .
 > ./Main.exe
 
@@ -18,7 +19,7 @@ Temps moyen par image : 30.8647
 Soit en moyenne une image est produite toutes les (1.38736 + 30.8647) / 2 = 16.12603 secondes !
 -----------------------------------------------------------------------------------------------
 
----------------------- Compilation avec option Release ------------------------------------------
+---------------------- Compilation avec option Release ----------------------------------------
 
 > cmake -DCMAKE_BUILD_TYPE=Release .
 > cmake --build .

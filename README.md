@@ -31,7 +31,7 @@ Le prgramme produit en sortie des images en format Portable Network Graphics (PN
 
 ## Structure du projet
 
-- Le dossier [data](data) contient differents jeux de données (resultats de tests de performance, pour l'instant vide)
+- Le dossier [data](data) contient differents jeux de données (resultats de tests de performance, ...)
 - Le dossier [doc](doc) contient la documentation expliquant plus en détail certains points du projet ... 
 - Le dossier [images](images) est le répertoire de sortie de la production d'images du programme
 - Le dossier [src](src) contient les fichiers source du programme.
