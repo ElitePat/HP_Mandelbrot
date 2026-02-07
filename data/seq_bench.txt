@@ -1,6 +1,6 @@
 RESULATATS D'ÉXECUTION CODE MANDELBROT EN SÉQUENTIEL
 
-Les temps sont données en secondes
+-> Première version de base du code. Les temps sont données en secondes
 
 ---------------------- Sans aucune option supplementaire de compilation -----------------------
 

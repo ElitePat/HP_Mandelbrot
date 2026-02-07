@@ -1,0 +1,28 @@
+BENCHMARK DU CODE HP_MANDELBROT EN SÉQUENTIEL
+
+-> Modification de la méthode de zoom et ajout des pargma "#ifndef NDEBUG". Les temps sont données en secondes.
+-> L'image fait 750 000 pixels !
+
+--------------------------------- Compilation en mode Debug -----------------------------------
+-
+> cmake -DCMAKE_BUILD_TYPE=Debug .
+> cmake --build .
+> ./Main.exe
+
+Zoom autour du point (0.25001;0):
+Temps total d'execution: 2886.63
+Temps moyen par image : 28.8663
+
+-----------------------------------------------------------------------------------------------
+
+---------------------- Compilation avec option Release ----------------------------------------
+
+> cmake -DCMAKE_BUILD_TYPE=Release .
+> cmake --build .
+> ./Main.exe
+
+Zoom autour du point (0.25001;0):
+Temps total d'execution: x
+Temps moyen par image: x
+
+-----------------------------------------------------------------------------------------------

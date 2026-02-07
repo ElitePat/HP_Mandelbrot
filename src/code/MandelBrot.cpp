@@ -103,7 +103,7 @@ void MandelBrot::run(int const& n){
     double sx, ex, sy, ey;
     
     // on choisi un point de depart
-    double orgzx=0.25, orgzy=0.0001;
+    double orgzx=0.27, orgzy=0.000000000001;
     // et un zoom de départ (on tient compte ici du format de l'image: 4:3)
     sx = orgzx - (0.5 * width/height);
     ex = orgzx + (0.5 * width/height);
@@ -113,14 +113,19 @@ void MandelBrot::run(int const& n){
     // de combien on zoom pour chaque itération
     double zoom = 0.5;
 
-    std::cout << "Itération\tZoom\tPlage de données (en xmin,ymin - xmax,ymax)\n";
-    
+    #ifndef NDEBUG
+    std::cout << "Itération\tPlage de données (en xmin,ymin - xmax,ymax)\tZoom = " << zoom << "\n";
+    #endif
+
     // Boucle principale
     for(int i=0; i<n; ++i){
 
         // Debug output
-        std::cout << i << "\t\t" << zoom << "\t[" << sx << ";" << sy << "] -> [" << ex << ";" << ey << "]\n";
+        #ifndef NDEBUG
+        std::cout << i << "\t\t" << "[" << sx << ";" << sy << "] -> [" << ex << ";" << ey << "]\n";
+        #endif
 
+        
         // test sur les plages des données !
         if(!set_zoom(sx,ex,sy,ey)){
             draw_mandel();

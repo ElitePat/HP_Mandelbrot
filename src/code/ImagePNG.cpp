@@ -31,14 +31,16 @@ ImagePNG::ImagePNG(int h, int w) : height(h), width(w) {
 
     // on initalise le double vecteur de png_byte
     image_px = new std::vector<std::vector<png_byte>>(height, std::vector<png_byte>(width*4)); // 4 valeurs pour chaque pixel !
-    std::cout << "Image crée avec " << px_tt << " pixels\n"; // debug line
+    std::cout << "L'objet image contien " << px_tt << " pixels.\n"; // debug line
 
 }
 
 // destructeur de la classe
 ImagePNG::~ImagePNG(){
     delete image_px;
-    std::cout << "Pointeur image_px supprimé correctement.\n";
+    #ifndef NDEBUG
+    std::cout << "Pointeur image_px supprimé correctement.\n"; // debug line
+    #endif
 }
 
 // On affiche les pixels sur le terminal
