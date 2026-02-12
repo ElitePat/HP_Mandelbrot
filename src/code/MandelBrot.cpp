@@ -102,8 +102,8 @@ void MandelBrot::run(int const& n){
     std::string filename = "mz";
     double sx, ex, sy, ey;
     
-    // on choisi un point de depart
-    double orgzx=0.27, orgzy=0.000000000001;
+    // on fixe un point de depart
+    const double orgzx=0.2509784563981121, orgzy=-0.00004652030450813527;
     // et un zoom de départ (on tient compte ici du format de l'image: 4:3)
     sx = orgzx - (0.5 * width/height);
     ex = orgzx + (0.5 * width/height);
@@ -111,7 +111,7 @@ void MandelBrot::run(int const& n){
     ey = orgzy + 0.5;
 
     // de combien on zoom pour chaque itération
-    double zoom = 0.5;
+    double zoom = 0.25;
 
     #ifndef NDEBUG
     std::cout << "Itération\tPlage de données (en xmin,ymin - xmax,ymax)\tZoom = " << zoom << "\n";
@@ -122,14 +122,17 @@ void MandelBrot::run(int const& n){
 
         // Debug output
         #ifndef NDEBUG
-        std::cout << i << "\t\t" << "[" << sx << ";" << sy << "] -> [" << ex << ";" << ey << "]\n";
+        std::cout << i << "\t\t" << "[" << printf("%.75f",sx) << ";" << std::format("{}",sy) 
+        << "] -> [" << printf("%.75f",ex) << ";" << std::format("{}",ey) << "]\n";
         #endif
 
         
         // test sur les plages des données !
         if(!set_zoom(sx,ex,sy,ey)){
-            draw_mandel();
-            crea_png((filename + std::to_string(i)).c_str());
+            if(i>0){
+                draw_mandel();
+                crea_png((filename + std::to_string(i)).c_str());
+            }
         }else{
             std::cout << "Erreur dans le zoom\n";
             break;
@@ -139,7 +142,7 @@ void MandelBrot::run(int const& n){
         /* Ici on regle le zoom par rapport à l'image precedente. On utilise fabs() pour avoir la distance entre
         l'origine du zoom et les bors de l'image et on reduit cette distance de zoom fois. Avec zoom < 1 ! */
         sx += fabs(orgzx - sx) * zoom;
-        ex -= fabs(orgzx - ex) * zoom;        
+        ex -= fabs(orgzx - ex) * zoom;      
         sy += fabs(orgzy - sy) * zoom;
         ey -= fabs(orgzy - ey) * zoom;
 

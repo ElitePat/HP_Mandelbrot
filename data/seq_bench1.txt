@@ -9,9 +9,9 @@ BENCHMARK DU CODE HP_MANDELBROT EN SÉQUENTIEL
 > cmake --build .
 > ./Main.exe
 
-Zoom autour du point (0.25001;0):
-Temps total d'execution: 2886.63
-Temps moyen par image : 28.8663
+Zoom autour du point (0.2509784563981121;-0.00004652030450813527):
+Temps total d'execution: 1545.99
+Temps moyen par image : 15.4599
 
 -----------------------------------------------------------------------------------------------
 
@@ -21,8 +21,8 @@ Temps moyen par image : 28.8663
 > cmake --build .
 > ./Main.exe
 
-Zoom autour du point (0.25001;0):
-Temps total d'execution: x
-Temps moyen par image: x
+Zoom autour du point (0.2509784563981121;-0.00004652030450813527):
+Temps total d'execution: 321.285
+Temps moyen par image: 3.21285
 
 -----------------------------------------------------------------------------------------------

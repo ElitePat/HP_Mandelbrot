@@ -7,6 +7,7 @@
 #include <png.h>       // gestion des png_bytes
 #include <cmath>       // pour les opération mathématiques
 #include <complex>     // pour la manipulation de nombres complexes (à faire seulement lors des itérations de convergence)
+#include <format>      // pour imprimer tous les chiffres significatifs des coordonnées exploités
 #include "ImagePNG.h"
 #include "Color.h"
 

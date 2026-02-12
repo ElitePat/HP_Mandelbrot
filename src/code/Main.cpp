@@ -19,7 +19,7 @@ int main(){
     // on lance le chronomètre
     const auto debut{std::chrono::steady_clock::now()};
     // On fait les calculs pour n images
-    mb->run(DEF_ITER-70);
+    mb->run(DEF_ITER);
     // on arrete le chronomètre
     const auto fin{std::chrono::steady_clock::now()};
     // on calcule affiche le temps passé
