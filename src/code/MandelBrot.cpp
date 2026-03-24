@@ -105,10 +105,14 @@ void MandelBrot::run(int const& n){
     // on fixe un point de depart
     const double orgzx=0.2509784563981121, orgzy=-0.00004652030450813527;
     // et un zoom de départ (on tient compte ici du format de l'image: 4:3)
-    sx = orgzx - (0.5 * width/height);
-    ex = orgzx + (0.5 * width/height);
-    sy = orgzy - 0.5;
-    ey = orgzy + 0.5;
+    //sx = orgzx - (0.5 * width/height);
+    sx = 0.25097845639782700999376174877397716045379638671875;
+    //ex = orgzx + (0.5 * width/height);
+    ex = 0.25097845639839722053920922917313873767852783203125;
+    //sy = orgzy - 0.5;
+    sy = -4.6520304721948746e-05;
+    //ey = orgzy + 0.5;
+    ey = -4.652030429432179e-05;
 
     // de combien on zoom pour chaque itération
     double zoom = 0.25;
@@ -129,10 +133,8 @@ void MandelBrot::run(int const& n){
         
         // test sur les plages des données !
         if(!set_zoom(sx,ex,sy,ey)){
-            if(i>0){
-                draw_mandel();
-                crea_png((filename + std::to_string(i)).c_str());
-            }
+            draw_mandel();
+            crea_png((filename + std::to_string(100+i)).c_str());
         }else{
             std::cout << "Erreur dans le zoom\n";
             break;
