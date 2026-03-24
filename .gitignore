@@ -2,7 +2,8 @@
 # This file describes files/directories that should be not shared to the public repositories (Github for example)
 # Allows to untrack files that are specific to your machine (executables and others ...)
 .vscode/*
-build/*
+build-debug/*
+build-release/*
 images/Test_PNG.png
 images/mb*
 images/mz*

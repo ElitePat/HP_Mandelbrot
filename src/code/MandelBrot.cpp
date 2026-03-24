@@ -38,7 +38,7 @@ int MandelBrot::iter_mandel(const std::complex<double> c){
     // Boucle d'itération principale
     while((std::abs(z) < 2.0) && (cmpt < MAX_ITER)){
         // Fonction du Mandelbrot par défaut
-        z = pow(z,2) + c; // z = z^2 + c
+        z = z*z + c; // z = z^2 + c
         ++cmpt;
     }
 
