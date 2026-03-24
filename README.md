@@ -55,35 +55,56 @@ Le prgramme produit en sortie des images en format Portable Network Graphics (PN
     ```
 - Il est recomandé d'utilser le compilateur GNU, sinon il faudra modifier les options de compilation en fonction du compilateur choisi dans le fichier [CMakeLists.txt](CMakeLists.txt).
 
-### Procedure
+### Procedure d'execution
 
-Après avoir installé le projet sur sa machine (via git, ou autre moyen), ouvrir le terminal, créer un dossier build au sein du dossier HP_Mandelbrot et se placer dedans. 
+Après avoir installé (téléchargé) le projet sur sa machine (via git, ou autre moyen), ouvrir le terminal. La première étape consiste à créer un dossier où seront entreposés les executables (et autres fichiers). Mais au lieu de créer un seul dossier, nous allons en faire 2, un pour le mode DEBUG (pour vérifier que tout marche bien) et un autre pour le mode RELEASE (version production).
+
+Pour le mode DEBUG, créer un dossier build-debug au sein du dossier HP_Mandelbrot et se placer dedans. 
 ```bash
-mkdir build
-cd build
+mkdir build-debug
+cd build-debug
 ```
 Ensuite on tape la commande suivante pour construire le projet:
 ```bash
-cmake ..
+cmake -DCMAKE_BUILD_TYPE=Debug ..
 ```
-Ensuite on va compiler le projet:
+
+Pour le mode RELEASE, créer un dossier build-release au sein du dossier HP_Mandelbrot et se placer dedans. 
+```bash
+mkdir build-release
+cd build-release
+```
+Ensuite on tape la commande suivante pour construire le projet:
+```bash
+cmake -DCMAKE_BUILD_TYPE=Release ..
+```
+
+Les étapes suivantes sont les mêmes pour les deux modes.
+
+Pour compiler le projet:
 ```bash
 cmake --build .
+```
+(Si on veut voir le temps d'execution du programme et se rassurer que tout se passe bien)
+```bash
+ctest
 ```
 Pour executer le programme on execute la commande :
 ```bash
 ./Main.exe
 ```
-[Si on est pas sur un OS Windows (où WSL) il faudra changer le nom de l'executable dans la fonction add_executable() dans le fichier  [CMakeLists.txt](CMakeLists.txt)]
+[Si on est pas sur un Système Windows (ou WSL) il faudra changer le nom de l'executable dans la fonction add_executable() dans le fichier  [CMakeLists.txt](CMakeLists.txt)]
 
-Pour modifier la disposition des couleurs (le plus important) il faut se rendre dans le fichier [Color.cpp](src/code/Color.cpp).
-L'idéal serait d'imiter l'approche utilsé par l'une des fonctions présente dans ce fichier. Il faudrait alors inclure le nom de la fonction crée où modifiée en tant que dernier argument, dans l'appel de la fonction `color_mandel()` dans le fichier [MandelBrot.cpp](src/code/MandelBrot.cpp).
-
-Pour nettoyer le dossier build (correctement) faire:
+Pour nettoyer le dossier build (correctement, que ce soit build-debug ou build-release) faire:
 ```bash
 cd build
 cmake --build . --target my_clean && cd ../
 ```
+
+### Modification des couleurs
+
+Pour modifier la disposition des couleurs (le plus important) il faut se rendre dans le fichier [Color.cpp](src/code/Color.cpp).
+L'idéal serait d'imiter l'approche utilsé par l'une des fonctions présente dans ce fichier. Il faudrait alors inclure le nom de la fonction crée où modifiée en tant que dernier argument, dans l'appel de la fonction `color_mandel()` dans le fichier [MandelBrot.cpp](src/code/MandelBrot.cpp).
 
 ## Autres remarques
 
