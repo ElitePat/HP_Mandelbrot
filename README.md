@@ -108,4 +108,6 @@ L'idéal serait d'imiter l'approche utilsé par l'une des fonctions présente da
 
 ## Autres remarques
 
-L'utilisation de l'IA n'a été faite qu'une seule fois. Et son usage se resume dans le code du fichier source [exemple_png_mistral_ia.cpp](src/code/exemple_png_mistral_ia.cpp), qui m'a facilité l'écriture de la fonction permettant de creer une image png.
+L'utilisation de l'IA n'a été faite qu'une seule fois. Et son usage se resume dans le code du fichier source [exemple_png_mistral_ia.cpp](src/code/exemple_png_mistral_ia.cpp), qui m'a facilité l'écriture de la fonction permettant de creer une image au format PNG.
+
+**L’utilisation des contenus de ce site à des fins de data mining, scraping ou d’entraînement d’IA est strictement interdite.**
