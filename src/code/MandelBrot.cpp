@@ -27,38 +27,48 @@ int MandelBrot::set_zoom(double sx, double ex, double sy, double ey){
     return 0;
 }
 
+// Fonction (critique) qui renvoie en sortie le resultat de l'application de la suite z*z+c jusqu'à z_MAX_ITER
+double MandelBrot::iter_mandel(const std::complex<double> c){
 
-// Fonction qui renvoie en sortie le nombre d'itérations pour que le complexe donné diverge
-int MandelBrot::iter_mandel(const std::complex<double> c){
+    /** Dans cette version de iter_mandel on a choisit de scinder la boucle principale en 2, car pour certains nombres
+    la suite diverge bien avant d'atteindre MAX_ITER */
 
     // Variables
-    int cmpt = 0;
+    int i;
     std::complex<double> z(0,0);
-
-    // Boucle d'itération principale
-    while((std::abs(z) < 2.0) && (cmpt < MAX_ITER)){
-        // Fonction du Mandelbrot par défaut
+    
+    // Première boucle d'itération principale
+    for(i=0; i<HALF_MAX_ITER; i++){
+        // Suite originale de l'ensemble de Mandelbrot
         z = z*z + c; // z = z^2 + c
-        ++cmpt;
     }
 
-    return cmpt;
+    if(std::abs(z) < 2.0){
+        // Deuxième boucle d'itération principale
+        for(i=HALF_MAX_ITER; i<MAX_ITER; i++){
+            // Suite originale de l'ensemble de Mandelbrot
+            z = z*z + c; // z = z^2 + c
+        }
+    }
+
+    return z;
 }
 
 // Fonction qui associe une couleur au degrée de divergence calculé
-void MandelBrot::color_mandel(int x, int y, int degree, unsigned char color_selector(int rgb, int d)){
+void MandelBrot::color_mandel(int x, int y, double degree, unsigned char color_selector(int rgb, int d)){
 
     // On associe une couleur au degree
     unsigned char r, g, b; //teinte=0; // Attention format RVBA (rouge, vert, bleu, alpha) !
 
-    if(degree == MAX_ITER){ // couleur noire OK
+    if(degree >= 2.0){ // couleur noire OK
         r = (unsigned char)(0);
         g = (unsigned char)(0); 
         b = (unsigned char)(0); 
-    }else{        
-        r = color_selector(0,degree);
-        g = color_selector(1,degree);
-        b = color_selector(2,degree);
+    }else{
+        int tmp = int((degree*256) / 2.0);
+        r = color_selector(0,tmp);
+        g = color_selector(1,tmp);
+        b = color_selector(2,tmp);
     }
     //std::cout << "x:" << x << ",y:" << y << " => " << degree << "\n"; // debug line
 
