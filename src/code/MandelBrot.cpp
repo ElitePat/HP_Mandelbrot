@@ -51,7 +51,7 @@ double MandelBrot::iter_mandel(const std::complex<double> c){
         }
     }
 
-    return z;
+    return std::abs(z);
 }
 
 // Fonction qui associe une couleur au degrée de divergence calculé
@@ -109,7 +109,7 @@ void MandelBrot::draw_mandel(){
 void MandelBrot::run(int const& n){
     
     // Variables
-    std::string filename = "mz";
+    std::string filename = "mb-cpu";
     double sx, ex, sy, ey;
     
     // on fixe un point de depart
