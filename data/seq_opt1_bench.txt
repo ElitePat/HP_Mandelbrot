@@ -1,0 +1,17 @@
+BENCHMARK DU CODE HP_MANDELBROT EN SÉQUENTIEL
+
+-> Modification de la fonction de coloration
+
+---------------------- Compilation en mode Release ----------------------------------------
+
+> cmake -DCMAKE_BUILD_TYPE=Release .
+> cmake --build .
+> ./Main.exe
+
+Zoom autour du point (0.2509784563981121;-0.00004652030450813527):
+Temps total d'execution: 285.431
+Temps moyen par image: 2.85431
+
+-----------------------------------------------------------------------------------------------
+
+=>  On constate une amélioration par rapport au score précedent de 11.15% !
