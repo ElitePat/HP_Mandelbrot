@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cmath>
+#include <vector>
 
 
 /**     Ce fichier source à été élaboré afin qu'on puisse rajouter des fonctions
@@ -13,13 +14,13 @@
 
 
 // coloration de base
-unsigned char base(int rgb, int d);
+std::vector<unsigned char> base(int d);
 
 // 3 phase gradient blue green blue !!
-unsigned char blue_green_blue(int rgb, int d);
+std::vector<unsigned char> blue_green_blue(int d);
 
 // experimental fonction
-unsigned char experience(int rgb, int d);
+std::vector<unsigned char> experience(int d);
 
 
 #endif // COLOR_H

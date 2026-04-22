@@ -12,7 +12,6 @@
 #include "Color.h"
 
 #define MAX_ITER 1024
-#define HALF_MAX_ITER MAX_ITER/2 // nombre entier !
 
 
 class MandelBrot : public ImagePNG {
@@ -27,11 +26,11 @@ private:
     on peut avoir un dessin plus ou moins allongé/étiré. */
 
     // Méethodes
-    // Fonction (critique) qui renvoie en sortie le resultat de l'application de la suite z*z+c jusqu'à z_MAX_ITER
-    double iter_mandel(const std::complex<double> c);
+    // Fonction qui renvoie en sortie le nombre d'itérations pour que le complexe donné diverge
+    int iter_mandel(const std::complex<double> c);
 
     // Fonction qui associe une couleur au degrée de divergence calculé
-    void color_mandel(int x, int y, double degre, unsigned char color_selector(int rgb, int d));
+    void color_mandel(int x, int y, int degre, std::vector<unsigned char> color_selector(int d));
 
 public:
 

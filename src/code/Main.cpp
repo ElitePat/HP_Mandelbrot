@@ -2,7 +2,7 @@
 #include <chrono>      // Chronométre
 #include "../headers/MandelBrot.h"
 
-#define DEF_ITER 150
+#define DEF_ITER 1
 
 // Fonction Principale
 int main(){

@@ -27,55 +27,41 @@ int MandelBrot::set_zoom(double sx, double ex, double sy, double ey){
     return 0;
 }
 
-// Fonction (critique) qui renvoie en sortie le resultat de l'application de la suite z*z+c jusqu'à z_MAX_ITER
-double MandelBrot::iter_mandel(const std::complex<double> c){
-
-    /** Dans cette version de iter_mandel on a choisit de scinder la boucle principale en 2, car pour certains nombres
-    la suite diverge bien avant d'atteindre MAX_ITER */
+// Fonction qui renvoie en sortie le nombre d'itérations pour que le complexe donné diverge
+int MandelBrot::iter_mandel(const std::complex<double> c){
 
     // Variables
-    int i;
+    int cmpt = 0;
     std::complex<double> z(0,0);
-    
-    // Première boucle d'itération principale
-    for(i=0; i<HALF_MAX_ITER; i++){
+
+    // Boucle d'itération principale
+    while((std::abs(z) < 2.0) && (cmpt < MAX_ITER)){
         // Suite originale de l'ensemble de Mandelbrot
         z = z*z + c; // z = z^2 + c
+        ++cmpt;
     }
 
-    if(std::abs(z) < 2.0){
-        // Deuxième boucle d'itération principale
-        for(i=HALF_MAX_ITER; i<MAX_ITER; i++){
-            // Suite originale de l'ensemble de Mandelbrot
-            z = z*z + c; // z = z^2 + c
-        }
-    }
-    //std::cout << "z = " << std::abs(z) << "\n";
-    return std::abs(z);
+    return cmpt;
+
 }
 
 // Fonction qui associe une couleur au degrée de divergence calculé
-void MandelBrot::color_mandel(int x, int y, double degree, unsigned char color_selector(int rgb, int d)){
+void MandelBrot::color_mandel(int x, int y, int degre, std::vector<unsigned char> color_selector(int d)){
 
     // On associe une couleur au degree
-    unsigned char r, g, b; //teinte=0; // Attention format RVBA (rouge, vert, bleu, alpha) !
+    std::vector<unsigned char> rgb(3); // Attention format RVBA (rouge, vert, bleu, alpha) !
 
-    if(degree >= 2.0){ // couleur noire OK
-        r = (unsigned char)(0);
-        g = (unsigned char)(0); 
-        b = (unsigned char)(0); 
+    if(degre >= MAX_ITER){ // couleur noire OK
+        rgb = {0,0,0};
     }else{
-        int tmp = int((degree*256) / 2.0);
-        r = color_selector(0,tmp);
-        g = color_selector(1,tmp);
-        b = color_selector(2,tmp);
+        rgb = color_selector(degre);
     }
     //std::cout << "x:" << x << ",y:" << y << " => " << degree << "\n"; // debug line
 
     // On sauvegarde la couleur obtenue
-    image_px->at(y).at(x*4) = r;
-    image_px->at(y).at(x*4 + 1) = g;
-    image_px->at(y).at(x*4 + 2) = b;
+    image_px->at(y).at(x*4) = rgb.at(0);
+    image_px->at(y).at(x*4 + 1) = rgb.at(1);
+    image_px->at(y).at(x*4 + 2) = rgb.at(2);
     image_px->at(y).at(x*4 + 3) = 255; // degre d'opacité maximal
     
 }
@@ -109,20 +95,20 @@ void MandelBrot::draw_mandel(){
 void MandelBrot::run(int const& n){
     
     // Variables
-    std::string filename = "mb-cpu";
+    std::string filename = "mb-cpu0-";
     double sx, ex, sy, ey;
     
     // on fixe un point de depart
     const double orgzx=0.2509784563981121, orgzy=-0.00004652030450813527;
     // et un zoom de départ (on tient compte ici du format de l'image: 4:3)
-    sx = orgzx - (0.5 * width/height);
-    //sx = 0.25097845639782700999376174877397716045379638671875;
-    ex = orgzx + (0.5 * width/height);
-    //ex = 0.25097845639839722053920922917313873767852783203125;
-    sy = orgzy - 0.5;
-    //sy = -4.6520304721948746e-05;
-    ey = orgzy + 0.5;
-    //ey = -4.652030429432179e-05;
+    //sx = orgzx - (0.5 * width/height);
+    sx = 0.25097845639782700999376174877397716045379638671875;
+    //ex = orgzx + (0.5 * width/height);
+    ex = 0.25097845639839722053920922917313873767852783203125;
+    //sy = orgzy - 0.5;
+    sy = -4.6520304721948746e-05;
+    //ey = orgzy + 0.5;
+    ey = -4.652030429432179e-05;
 
     // de combien on zoom pour chaque itération
     double zoom = 0.25;
@@ -144,7 +130,7 @@ void MandelBrot::run(int const& n){
         // test sur les plages des données !
         if(!set_zoom(sx,ex,sy,ey)){
             draw_mandel();
-            crea_png((filename + std::to_string(i)).c_str());
+            crea_png((filename + std::to_string(100+i)).c_str());
         }else{
             std::cout << "Erreur dans le zoom\n";
             break;
