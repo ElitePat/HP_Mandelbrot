@@ -22,7 +22,7 @@ int main(){
     mb->run(DEF_ITER);
     // on arrete le chronomètre
     const auto fin{std::chrono::steady_clock::now()};
-    // on calcule affiche le temps passé
+    // on calcule et affiche le temps passé
     const std::chrono::duration<double> tcl{(fin - debut)}; // passage des nanosecondes au secondes
     std::cout << "Temps de calcul pour " << DEF_ITER << " dessins du Mandelbrot = " << tcl.count() << "\n";
     std::cout << "Soit en moyenne " << tcl.count()/DEF_ITER << " secondes par image \n";
