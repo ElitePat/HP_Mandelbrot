@@ -1,0 +1,3 @@
+Version     Temps moyen par image(s)
+2.0         2.85431
+2.1         2.88536
