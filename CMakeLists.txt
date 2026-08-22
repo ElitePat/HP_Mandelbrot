@@ -54,7 +54,8 @@ include_directories(${HEADERS_DIR}) # Ton répertoire d'en-têtes (où sont les 
 include_directories(${PNG_INCLUDE_DIRS}) # En-têtes PNG trouvés par find_package
 
 # Options de compilation standard
-add_compile_options(-std=c++20 -Wall -Wextra -pedantic -lm -lpng -lz) # Options de warning strictes!
+add_compile_options(-std=c++20 -Wall -Wextra -pedantic -lm -lpng -lz -mcmodel=large -march=native -funroll-loops)
+# Options de warning strictes et de performances maximales !
 #lm -> maths, lpng -> libpng, lz -> zlib
 
 

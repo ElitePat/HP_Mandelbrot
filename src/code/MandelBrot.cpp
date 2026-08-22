@@ -95,7 +95,7 @@ void MandelBrot::draw_mandel(){
 void MandelBrot::run(int const& n){
     
     // Variables
-    std::string filename = "mb-cpu0-";
+    std::string filename = "mb-cpu1-";
     double sx, ex, sy, ey;
     
     // on fixe un point de depart

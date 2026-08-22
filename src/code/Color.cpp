@@ -13,9 +13,16 @@ std::vector<unsigned char> blue_green_blue(int d){
     return {r,g,b};
 }
 
-std::vector<unsigned char> experience(int d){
+std::vector<unsigned char> experience0(int d){
     unsigned char r = (unsigned char)(-1*(d*22));
     unsigned char g = (unsigned char)(1*(abs(d-500))/2+255);
     unsigned char b = (unsigned char)(75 + 20*d);
+    return {r,g,b};
+}
+
+std::vector<unsigned char> experience(int d){
+    unsigned char r = (unsigned char)(-1*(d*22));
+    unsigned char g = (unsigned char)(120 + 18*d);
+    unsigned char b = (unsigned char)(1*(abs(d-500))/2+255);
     return {r,g,b};
 }
