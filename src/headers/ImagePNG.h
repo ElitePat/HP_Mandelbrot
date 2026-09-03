@@ -9,6 +9,7 @@
 #include <png.h>        // gestion fichiers PNG
 #include <zlib.h>       // compression fichiers PNG
 #include <exception>    // pour gerer les exceptions
+#include <cmath>
 
 #define IMG_SIZE_LIMIT 100000000 // 10^8
 const std::string picture_path = "../images/";
@@ -44,6 +45,9 @@ public:
 
     // Creation de l'image à partir du double tableau
     void crea_png(std::string const& filename);
+
+    // Vérification itérative de la plage de données pour un zoom
+    int verif_data(int const& n);
 
 };
 

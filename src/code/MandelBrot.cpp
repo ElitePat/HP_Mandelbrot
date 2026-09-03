@@ -95,63 +95,26 @@ void MandelBrot::draw_mandel(){
 void MandelBrot::run(int const& n){
     
     // Variables
-    std::string filename = "mb-cpu1-";
-    double sx, ex, sy, ey;
+    std::string filename = "mb-cpu3-";
     
     // on fixe un point de depart
     const double orgzx=0.2509784563981121, orgzy=-0.00004652030450813527;
 
     // un zoom de départ (on tient compte ici du format de l'image: 4:3)
-    sx = orgzx - (0.5 * width/height);
+    startx = orgzx - (0.5 * width/height);
     //sx = 0.25097845639782700999376174877397716045379638671875;
-    ex = orgzx + (0.5 * width/height);
+    endx = orgzx + (0.5 * width/height);
     //ex = 0.25097845639839722053920922917313873767852783203125;
-    sy = orgzy - 0.5;
+    starty = orgzy - 0.5;
     //sy = -4.6520304721948746e-05;
-    ey = orgzy + 0.5;
+    endy = orgzy + 0.5;
     //ey = -4.652030429432179e-05;
 
     // et de combien on zoom pour chaque itération
     double zoom = 0.25;
 
-    #ifndef NDEBUG
-    std::cout << "Itération\tPlage de données (en xmin,ymin - xmax,ymax)\tZoom = " << zoom << "\n";
-    #endif
-
-    // Vérification de la plage des données
-    for(int i=0; i<n; ++i){
-        // Debug output
-        #ifndef NDEBUG
-        std::cout << i << "\t\t" << "[" << printf("%.75f",sx) << ";" << std::format("{}",sy) 
-        << "] -> [" << printf("%.75f",ex) << ";" << std::format("{}",ey) << "]\n";
-        #endif
-        
-        // test sur les plages des données !
-        if((sx >= ex) || (sy >= ey)){ // si il y en a une qui ne soit pas correcte
-            std::cout << "Erreur dans le zoom à l'itération " << i << "\n";
-            return;
-        }
-
-        sx += fabs(orgzx - sx) * zoom;
-        ex -= fabs(orgzx - ex) * zoom;      
-        sy += fabs(orgzy - sy) * zoom;
-        ey -= fabs(orgzy - ey) * zoom;
-    }
-
-    // on retabli le zoom de départ !
-    sx = orgzx - (0.5 * width/height);
-    ex = orgzx + (0.5 * width/height);
-    sy = orgzy - 0.5;
-    ey = orgzy + 0.5;
-
     // ====================== Boucle principale ======================
     for(int i=0; i<n; ++i){
-
-        // On affecte la zone à chaque image
-        startx = sx;
-        endx = ex;
-        starty = sy;
-        endy = ey;
 
         draw_mandel(); // on dessine
         crea_png((filename + std::to_string(i)).c_str()); // et on "imprime" le dessin
@@ -159,10 +122,10 @@ void MandelBrot::run(int const& n){
         // on redefini le zoom
         /* Ici on regle le zoom par rapport à l'image precedente. On utilise fabs() pour avoir la distance entre
         l'origine du zoom et les bors de l'image et on reduit cette distance de zoom fois. Avec zoom < 1 ! */
-        sx += fabs(orgzx - sx) * zoom;
-        ex -= fabs(orgzx - ex) * zoom;      
-        sy += fabs(orgzy - sy) * zoom;
-        ey -= fabs(orgzy - ey) * zoom;
+        startx += fabs(orgzx - startx) * zoom;
+        endx -= fabs(orgzx - endx) * zoom;      
+        starty += fabs(orgzy - starty) * zoom;
+        endy -= fabs(orgzy - endy) * zoom;
 
     }
     // ==============================================================

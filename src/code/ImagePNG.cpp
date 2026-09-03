@@ -130,3 +130,51 @@ void ImagePNG::crea_png(std::string const& filename){
     png_destroy_write_struct(&png, &info);
 
 }
+
+// Vérification itérative de la plage de données pour un zoom
+int ImagePNG::verif_data(int const& n){
+
+    double sx, ex, sy, ey;
+
+    // point de depart
+    const double orgzx=0.2509784563981121, orgzy=-0.00004652030450813527;
+
+    // zoom de départ (on tient compte ici du format de l'image: 4:3)
+    sx = orgzx - (0.5 * width/height);
+    //sx = 0.25097845639782700999376174877397716045379638671875;
+    ex = orgzx + (0.5 * width/height);
+    //ex = 0.25097845639839722053920922917313873767852783203125;
+    sy = orgzy - 0.5;
+    //sy = -4.6520304721948746e-05;
+    ey = orgzy + 0.5;
+    //ey = -4.652030429432179e-05;
+    // zoom pour chaque itération
+    double zoom = 0.25;
+
+    #ifndef NDEBUG
+    std::cout << "Itération\tPlage de données (en xmin,ymin - xmax,ymax)\tZoom = " << zoom << "\n";
+    #endif
+
+    // Vérification de la plage des données
+    for(int i=0; i<n; ++i){
+        // Debug output
+        #ifndef NDEBUG
+        std::cout << i << "\t\t" << "[" << printf("%.75f",sx) << ";" << std::format("{}",sy) 
+        << "] -> [" << printf("%.75f",ex) << ";" << std::format("{}",ey) << "]\n";
+        #endif
+        
+        // test sur les plages des données !
+        if((sx >= ex) || (sy >= ey)){ // si il y en a une qui ne soit pas correcte
+            std::cout << "Erreur dans le zoom à l'itération " << i << "\n";
+            return 1;
+        }
+
+        sx += fabs(orgzx - sx) * zoom;
+        ex -= fabs(orgzx - ex) * zoom;      
+        sy += fabs(orgzy - sy) * zoom;
+        ey -= fabs(orgzy - ey) * zoom;
+    }
+
+    return 0; // tout est OK
+
+}

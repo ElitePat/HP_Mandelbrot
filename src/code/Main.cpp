@@ -2,7 +2,7 @@
 #include <chrono>      // Chronométre
 #include "../headers/MandelBrot.h"
 
-#define DEF_ITER 100
+#define DEF_ITER 10
 
 // Fonction Principale
 int main(){
@@ -16,16 +16,21 @@ int main(){
     MandelBrot* mb = new MandelBrot{height,width};
     // on laisse les marges par défaut
 
-    // on lance le chronomètre
-    const auto debut{std::chrono::steady_clock::now()};
-    // On fait les calculs pour n images
-    mb->run(DEF_ITER);
-    // on arrete le chronomètre
-    const auto fin{std::chrono::steady_clock::now()};
-    // on calcule et affiche le temps passé
-    const std::chrono::duration<double> tcl{(fin - debut)}; // passage des nanosecondes au secondes
-    std::cout << "Temps de calcul pour " << DEF_ITER << " dessins du Mandelbrot = " << tcl.count() << "\n";
-    std::cout << "Soit en moyenne " << tcl.count()/DEF_ITER << " secondes par image \n";
+    // vérifications au niveau du zoom à réaliser
+    if(!mb->verif_data(DEF_ITER)){ // si tout est OK
+
+        // on lance le chronomètre
+        const auto debut{std::chrono::steady_clock::now()};
+        // On fait les calculs pour n images
+        mb->run(DEF_ITER);
+        // on arrete le chronomètre
+        const auto fin{std::chrono::steady_clock::now()};
+        // on calcule et affiche le temps passé
+        const std::chrono::duration<double> tcl{(fin - debut)}; // passage des nanosecondes au secondes
+        std::cout << "Temps de calcul pour " << DEF_ITER << " dessins du Mandelbrot = " << tcl.count() << "\n";
+        std::cout << "Soit en moyenne " << tcl.count()/DEF_ITER << " secondes par image \n";
+
+    } // sinon on sort du programme
 
     // Libération de la mémoire
     delete mb;
