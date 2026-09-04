@@ -27,7 +27,7 @@ Le fichier [Documentation.pdf](doc/Documentation.pdf) explore certaines pistes p
 
 Ainsi nous implementerons plusieures versions (succesives), avec differentes approches/optimisations.
 
-Le prgramme produit en sortie des images en format Portable Network Graphics (PNG). Des formats facilitant l'implémentation existent, mais ici nous avons fait le choix d'un format plus portable.
+Le prgramme produit en sortie des images en format Portable Network Graphics (PNG). Des formats facilitant l'implémentation existent, mais ici nous avons fait le choix d'un format d'image plus portable.
 
 ## Structure du projet
 
@@ -54,12 +54,13 @@ Le prgramme produit en sortie des images en format Portable Network Graphics (PN
     sudo apt-get install libpng-dev
     ```
 - Il est recomandé d'utilser le compilateur GNU, sinon il faudra modifier les options de compilation en fonction du compilateur choisi dans le fichier [CMakeLists.txt](CMakeLists.txt).
+- Cette version du projet utilise aussi OpenMP (qui vient souvent integré au compilateur). 
 
 ### Procedure d'execution
 
-Après avoir installé (téléchargé) le projet sur sa machine (via git, ou autre moyen), ouvrir le terminal. La première étape consiste à créer un dossier où seront entreposés les executables (et autres fichiers). Mais au lieu de créer un seul dossier, nous allons en faire 2, un pour le mode DEBUG (pour vérifier que tout marche bien) et un autre pour le mode RELEASE (version production).
+Après avoir installé (téléchargé) le projet sur sa machine (via git, ou autre moyen), ouvrir le terminal. La première étape consiste à créer un sous-dossier où seront entreposés les executables (et autres fichiers générés par CMake). Mais au lieu de créer un seul sous-dossier, nous allons en faire 2, un pour le mode DEBUG (pour vérifier que tout marche bien) et un autre pour le mode RELEASE (version production).
 
-Pour le mode DEBUG, créer un dossier build-debug au sein du dossier HP_Mandelbrot et se placer dedans. 
+Pour le mode DEBUG, créer un sous-dossier build-debug au sein du dossier HP_Mandelbrot et se placer dedans. 
 ```bash
 mkdir build-debug
 cd build-debug
@@ -69,7 +70,7 @@ Ensuite on tape la commande suivante pour construire le projet:
 cmake -DCMAKE_BUILD_TYPE=Debug ..
 ```
 
-Pour le mode RELEASE, créer un dossier build-release au sein du dossier HP_Mandelbrot et se placer dedans. 
+Pour le mode RELEASE, créer un sous-dossier build-release au sein du dossier HP_Mandelbrot et se placer dedans. 
 ```bash
 mkdir build-release
 cd build-release
@@ -79,13 +80,21 @@ Ensuite on tape la commande suivante pour construire le projet:
 cmake -DCMAKE_BUILD_TYPE=Release ..
 ```
 
-Les étapes suivantes sont les mêmes pour les deux modes.
+Les étapes suivantes sont les mêmes pour les deux modes de compilation.
 
 Pour compiler le projet:
 ```bash
 cmake --build .
 ```
-(Si on veut voir le temps d'execution du programme et se rassurer que tout se passe bien)
+On choisit le mode de répartition des tâches entre les threads par OpenMP à l'aide de la variable d'environement OMP_SCHEDULE. Ses valeurs possibles sont: STATIC, DYNAMIC, GUIDED ou AUTO.
+```bash
+export OMP_SCHEDULE=STATIC
+```
+On choisit aussi combien de threads OpenMP, vont se lancer.
+```bash
+export OMP_NUM_THREADS=8
+```
+Si on veut voir le temps d'execution du programme et se rassurer que tout se passe bien.
 ```bash
 ctest
 ```
@@ -93,9 +102,9 @@ Pour executer le programme on execute la commande :
 ```bash
 ./Main.exe
 ```
-[Si on est pas sur un Système Windows (ou WSL) il faudra changer le nom de l'executable dans la fonction add_executable() dans le fichier  [CMakeLists.txt](CMakeLists.txt)]
+💡Si on est pas sur un Système Windows (ou WSL) il faudra changer le nom de l'executable dans la fonction add_executable() dans le fichier [CMakeLists.txt](CMakeLists.txt)
 
-Pour nettoyer le dossier build (correctement, que ce soit build-debug ou build-release) faire:
+Pour nettoyer le sous-dossier build (correctement, que ce soit build-debug ou build-release) faire:
 ```bash
 cd build
 cmake --build . --target my_clean && cd ../
