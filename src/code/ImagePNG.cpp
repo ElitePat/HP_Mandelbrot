@@ -134,6 +134,7 @@ void ImagePNG::crea_png(std::string const& filename){
 // Vérification itérative de la plage de données pour un zoom
 int ImagePNG::verif_data(int const& n){
 
+    /* La plage des données utilisée dans le programme doit toujours être testé par cette fonction! */
     double sx, ex, sy, ey;
 
     // point de depart

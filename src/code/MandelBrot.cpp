@@ -70,14 +70,24 @@ void MandelBrot::color_mandel(int x, int y, int degre, std::vector<unsigned char
 void MandelBrot::draw_mandel(){
 
     // on calcule le pas avec lequel on doit itérer
-    double pas_x = fabs(endx - startx) / width;
-    double pas_y = fabs(endy - starty) / height;
+    const double pas_x = fabs(endx - startx) / width;
+    const double pas_y = fabs(endy - starty) / height;
 
     // on defini les varaibles avec lequelles on calcule
     std::complex<double> c;
     int x, y;
 
-    // Double-boucle principale
+    /* Double-boucle principale: 
+    Ici la parallélisation se fait au niveau des axes des colonnes,
+    pour que chaue thread aie une ou plussieurs lignes à calculer. 
+    
+    Ce qui marche le mieux pour moi (machine possèdant 8 coeurs logiques) c'est:
+    export OMP_SCHEDULE=STATIC
+    export OMP_NUM_THREADS=8
+    
+    On laisse le soin à l'utilisateur de définir le mode de répartition des tâches entre les threads.
+    Attention: x et y sont privés car sinon, par défaut, ils sont partagés par tous les threads et cela génére des conflits! */
+    #pragma omp parallel for schedule(runtime) private(x,y)
     for(y=0; y<height; y++){
         for(x=0; x<width; x++){
             // on identifie le complexe c associé au point x;y
@@ -95,7 +105,7 @@ void MandelBrot::draw_mandel(){
 void MandelBrot::run(int const& n){
     
     // Variables
-    std::string filename = "mb-cpu3-";
+    std::string filename = "mb-cpu5-";
     
     // on fixe un point de depart
     const double orgzx=0.2509784563981121, orgzy=-0.00004652030450813527;

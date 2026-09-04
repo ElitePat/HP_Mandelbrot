@@ -10,6 +10,7 @@
 #include <zlib.h>       // compression fichiers PNG
 #include <exception>    // pour gerer les exceptions
 #include <cmath>
+#include <format>      // pour imprimer tous les chiffres significatifs des coordonnées exploités
 
 #define IMG_SIZE_LIMIT 100000000 // 10^8
 const std::string picture_path = "../images/";

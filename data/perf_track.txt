@@ -3,3 +3,4 @@ Version     Temps moyen par image(s)
 2.1         2.88536
 2.1.1       2.92087
 2.1.2       3.99876
+3.0         1.01033

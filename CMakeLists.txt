@@ -5,7 +5,7 @@
 cmake_minimum_required(VERSION 3.28)
 # Idéalement CMake 4.0 (dernière version stable Juin 2025)
 
-# enable modern C++ (en a-t-on besoin ?)
+# enable modern C++ (en a-t-on vraiment besoin ?)
 # set(CMAKE_CXX_STANDARD 20)
 
 # Nom du projet
@@ -21,6 +21,13 @@ if(PNG_FOUND)
     message(STATUS "PNG include dir: ${PNG_INCLUDE_DIRS}")
 else()
     message(FATAL_ERROR "PNG not found! Please install libpng development files.")
+endif()
+
+# Recherche de OpenMP, mêmes exigeances que précedement
+find_package(OpenMP REQUIRED)
+
+if(!OpenMP_FOUND)
+    message(FATAL_ERROR "OpenMP not found! Please install OpenMP dependencies.")
 endif()
 
 
@@ -67,12 +74,13 @@ add_executable(Main.exe ${MAIN_SRC})
 
 # --- Lier les bibliothèques aux exécutables ---
 
-# Lier les bibliothèques nécessaires au serveur
-target_link_libraries(Main.exe
+# Ici les librairies sont liées en PRIVATE
+target_link_libraries(Main.exe PRIVATE OpenMP::OpenMP_CXX)
+
+# Ici les librairies sont liées en mode PUBLIC (mode par défaut quand aucun <keyword> n'est spécifié)
+target_link_libraries(Main.exe PUBLIC
     ${PNG_LIBRARIES} # Lie la bibliothèque PNG trouvée
 )
-
-
 
 # --- Création des cibles (personalisés) ---
 
