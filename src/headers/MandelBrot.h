@@ -11,6 +11,7 @@
 #include "ImagePNG.h"
 #include "Color.h"
 
+/* Le nombre maximum d'itérations jusqu'à ce qu'on considére  que la suite est bornée */
 #define MAX_ITER 1024
 
 

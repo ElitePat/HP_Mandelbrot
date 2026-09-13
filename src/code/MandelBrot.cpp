@@ -30,6 +30,8 @@ int MandelBrot::set_zoom(double sx, double ex, double sy, double ey){
 // Fonction qui renvoie en sortie le nombre d'itérations pour que le complexe donné diverge
 int MandelBrot::iter_mandel(const std::complex<double> c){
 
+    // Version de base
+    /*
     // Variables
     int cmpt = 0;
     std::complex<double> z(0,0);
@@ -42,6 +44,42 @@ int MandelBrot::iter_mandel(const std::complex<double> c){
     }
 
     return cmpt;
+    */
+
+    /* Version amélioré: (efficace si MAX_ITER est un grand nombre !) 
+    Elle contient plus de branchements mais cela est compensé par l'accéleartion offerte par le boucle for
+    Idée principale: au lieu de faire un while de 0 à MAX_ITER (très lent, pas par pas), on avance par tronçon par tronçon
+    avec la boucle for. Si on est allé trop loin, on revient sur nos pas plus lentement avec une boucle while qui itére
+    sur une section precise. Sinon, on continue. */
+    // Variables
+    int cmpt=0, depart=-1*(MAX_ITER/4), fin=0 , iter, i=-1;
+    std::complex<double> z(0,0), z_ref(0,0);
+
+    // boucle for fractionné en 4
+    while((std::abs(z) < 2.0) && (i < 4)){
+        i++;
+        depart += MAX_ITER/4;
+        fin += MAX_ITER/4;
+        z_ref = z;
+        for(iter=depart; iter<fin; iter++){ // C'est ici que se fait l'accéleration !
+            z = z*z + c;
+        }
+    }
+
+    if(i != 3){
+        z = z_ref;
+        cmpt = depart;
+        // Boucle d'itération ciblé !
+        while((std::abs(z) < 2.0) && (cmpt < fin)){
+            // Suite originale de l'ensemble de Mandelbrot
+            z = z*z + c; // z = z^2 + c
+            ++cmpt;
+        }
+        return cmpt;
+    }else{ // ici aussi on fait un gain de temps
+        return MAX_ITER;
+    }
+    
 
 }
 
@@ -105,7 +143,7 @@ void MandelBrot::draw_mandel(){
 void MandelBrot::run(int const& n){
     
     // Variables
-    std::string filename = "mb-cpu5-";
+    std::string filename = "mb-cpu7-";
     
     // on fixe un point de depart
     const double orgzx=0.2509784563981121, orgzy=-0.00004652030450813527;
@@ -126,9 +164,11 @@ void MandelBrot::run(int const& n){
     // ====================== Boucle principale ======================
     for(int i=0; i<n; ++i){
 
+    
         draw_mandel(); // on dessine
         crea_png((filename + std::to_string(i)).c_str()); // et on "imprime" le dessin
-
+        
+        
         // on redefini le zoom
         /* Ici on regle le zoom par rapport à l'image precedente. On utilise fabs() pour avoir la distance entre
         l'origine du zoom et les bors de l'image et on reduit cette distance de zoom fois. Avec zoom < 1 ! */

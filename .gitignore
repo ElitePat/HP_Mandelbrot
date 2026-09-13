@@ -7,4 +7,5 @@ build-release/*
 images/Test_PNG.png
 images/mb*
 images/mz*
+images/cpu*
 error_plage_donne.txt
